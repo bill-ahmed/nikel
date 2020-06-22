@@ -138,7 +138,7 @@ type Food struct {
 	URL         sql.NullString   `json:"url" rql:"filter"`
 	Twitter     sql.NullString   `json:"twitter" rql:"filter"`
 	Facebook    sql.NullString   `json:"facebook" rql:"filter"`
-	Attributes  []sql.NullString `json:"attributes" rql:"filter"`
+	Attributes  []sql.NullString `json:"attributes"`
 	LastUpdated sql.NullString   `json:"last_updated"`
 }
 
@@ -173,7 +173,7 @@ type Service struct {
 		Longitude sql.NullFloat64 `json:"longitude"`
 	} `json:"coordinates"`
 	Tags        sql.NullString   `json:"tags" rql:"filter"`
-	Attributes  []sql.NullString `json:"attributes" rql:"filter"`
+	Attributes  []sql.NullString `json:"attributes"`
 	LastUpdated sql.NullString   `json:"last_updated"`
 }
 
