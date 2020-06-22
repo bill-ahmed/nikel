@@ -4,23 +4,24 @@ package main
 import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/nikel-api/nikel/common"
 	"math"
 )
 
 // getFood queries via the food endpoint
 func getFood(c *gin.Context) {
 	offset := parseInt(c.Query("offset"), 0, math.MaxInt64, 0)
-	limit := parseInt(c.Query("limit"), 1, TOPLIMIT, DEFAULTLIMIT)
+	limit := parseInt(c.Query("limit"), 1, common.TOPLIMIT, common.DEFAULTLIMIT)
 
 	data := autoQuery(
-		database.FoodData,
+		database.Food,
 		c.Request.URL.Query(),
 		limit,
 		offset,
 	)
 
 	res, _ := json.Marshal(data)
-	var food []Food
+	var food []common.Food
 	json.Unmarshal(res, &food)
 	if len(food) == 0 {
 		sendEmptySuccess(c)

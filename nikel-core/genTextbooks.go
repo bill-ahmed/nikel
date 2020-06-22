@@ -4,23 +4,24 @@ package main
 import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/nikel-api/nikel/common"
 	"math"
 )
 
 // getTextbooks queries via the textbooks endpoint
 func getTextbooks(c *gin.Context) {
 	offset := parseInt(c.Query("offset"), 0, math.MaxInt64, 0)
-	limit := parseInt(c.Query("limit"), 1, TOPLIMIT, DEFAULTLIMIT)
+	limit := parseInt(c.Query("limit"), 1, common.TOPLIMIT, common.DEFAULTLIMIT)
 
 	data := autoQuery(
-		database.TextbooksData,
+		database.Textbooks,
 		c.Request.URL.Query(),
 		limit,
 		offset,
 	)
 
 	res, _ := json.Marshal(data)
-	var textbooks []Textbook
+	var textbooks []common.Textbook
 	json.Unmarshal(res, &textbooks)
 	if len(textbooks) == 0 {
 		sendEmptySuccess(c)

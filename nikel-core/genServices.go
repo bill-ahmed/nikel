@@ -4,23 +4,24 @@ package main
 import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/nikel-api/nikel/common"
 	"math"
 )
 
 // getServices queries via the services endpoint
 func getServices(c *gin.Context) {
 	offset := parseInt(c.Query("offset"), 0, math.MaxInt64, 0)
-	limit := parseInt(c.Query("limit"), 1, TOPLIMIT, DEFAULTLIMIT)
+	limit := parseInt(c.Query("limit"), 1, common.TOPLIMIT, common.DEFAULTLIMIT)
 
 	data := autoQuery(
-		database.ServicesData,
+		database.Services,
 		c.Request.URL.Query(),
 		limit,
 		offset,
 	)
 
 	res, _ := json.Marshal(data)
-	var services []Service
+	var services []common.Service
 	json.Unmarshal(res, &services)
 	if len(services) == 0 {
 		sendEmptySuccess(c)

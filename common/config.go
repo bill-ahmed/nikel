@@ -1,4 +1,4 @@
-package main
+package common
 
 const (
 	COURSEPATH    = "nikel-parser/data/courses.json"

@@ -4,23 +4,24 @@ package main
 import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/nikel-api/nikel/common"
 	"math"
 )
 
 // getBuildings queries via the buildings endpoint
 func getBuildings(c *gin.Context) {
 	offset := parseInt(c.Query("offset"), 0, math.MaxInt64, 0)
-	limit := parseInt(c.Query("limit"), 1, TOPLIMIT, DEFAULTLIMIT)
+	limit := parseInt(c.Query("limit"), 1, common.TOPLIMIT, common.DEFAULTLIMIT)
 
 	data := autoQuery(
-		database.BuildingsData,
+		database.Buildings,
 		c.Request.URL.Query(),
 		limit,
 		offset,
 	)
 
 	res, _ := json.Marshal(data)
-	var buildings []Building
+	var buildings []common.Building
 	json.Unmarshal(res, &buildings)
 	if len(buildings) == 0 {
 		sendEmptySuccess(c)

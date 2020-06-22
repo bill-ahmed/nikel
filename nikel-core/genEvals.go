@@ -4,23 +4,24 @@ package main
 import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/nikel-api/nikel/common"
 	"math"
 )
 
 // getEvals queries via the evals endpoint
 func getEvals(c *gin.Context) {
 	offset := parseInt(c.Query("offset"), 0, math.MaxInt64, 0)
-	limit := parseInt(c.Query("limit"), 1, TOPLIMIT, DEFAULTLIMIT)
+	limit := parseInt(c.Query("limit"), 1, common.TOPLIMIT, common.DEFAULTLIMIT)
 
 	data := autoQuery(
-		database.EvalsData,
+		database.Evals,
 		c.Request.URL.Query(),
 		limit,
 		offset,
 	)
 
 	res, _ := json.Marshal(data)
-	var evals []Eval
+	var evals []common.Eval
 	json.Unmarshal(res, &evals)
 	if len(evals) == 0 {
 		sendEmptySuccess(c)
