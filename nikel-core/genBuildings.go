@@ -2,29 +2,26 @@
 package main
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/nikel-api/nikel/common"
 )
 
 // getBuildings queries via the buildings endpoint
 func getBuildings(c *gin.Context) {
-	params, err := parsers.Courses.Parse([]byte(`{"filter": {"code": "ACMB01H3"}}`))
+	// params, err := parsers.Courses.Parse([]byte(`{"filter": {"code": "ACMB01H3"}}`))
 
-	if err != nil {
-		panic(err)
-	}
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	var res []common.Course
+	var res common.Course
 
-	err = db.Where(params.FilterExp, params.FilterArgs).
-		Offset(params.Offset).
-		Limit(params.Limit).
-		Order(params.Sort).
-		Find(&res).Error
+	db.Last(&res)
 
-	if len(res) == 0 {
-		sendEmptySuccess(c)
-	} else {
-		sendSuccess(c, res)
-	}
+	bytes, _ := json.Marshal(res)
+
+	json.Unmarshal(bytes, &res)
+
+	sendSuccess(c, res)
 }
