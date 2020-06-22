@@ -11,5 +11,4 @@ require (
 	github.com/jinzhu/gorm v1.9.14
 	github.com/thedevsaddam/gojsonq/v2 v2.5.2
 	github.com/ulule/limiter/v3 v3.5.0
-	gopkg.in/guregu/null.v4 v4.0.0
 )

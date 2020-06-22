@@ -1,218 +1,220 @@
 package common
 
-import "gopkg.in/guregu/null.v4"
+import (
+	"database/sql"
+)
 
 // Course represents a course item
 type Course struct {
-	ID                         null.String `json:"id" gorm:"PRIMARY_KEY" rql:"filter"`
-	Code                       null.String `json:"code" rql:"filter"`
-	Name                       null.String `json:"name" rql:"filter"`
-	Description                null.String `json:"description" rql:"filter"`
-	Division                   null.String `json:"division" rql:"filter"`
-	Department                 null.String `json:"department" rql:"filter"`
-	Prerequisites              null.String `json:"prerequisites" rql:"filter"`
-	Corequisites               null.String `json:"corequisites" rql:"filter"`
-	Exclusions                 null.String `json:"exclusions" rql:"filter"`
-	RecommendedPreparation     null.String `json:"recommended_preparation" rql:"filter"`
-	Level                      null.String `json:"level" rql:"filter"`
-	Campus                     null.String `json:"campus" rql:"filter"`
-	Term                       null.String `json:"term" rql:"filter"`
-	ArtsAndScienceBreadth      null.String `json:"arts_and_science_breadth" rql:"filter"`
-	ArtsAndScienceDistribution null.String `json:"arts_and_science_distribution" rql:"filter"`
-	UtmDistribution            null.String `json:"utm_distribution" rql:"filter"`
-	UtscBreadth                null.String `json:"utsc_breadth" rql:"filter"`
-	ApscElectives              null.String `json:"apsc_electives" rql:"filter"`
+	ID                         sql.NullString `json:"id" gorm:"PRIMARY_KEY" rql:"filter"`
+	Code                       sql.NullString `json:"code" rql:"filter"`
+	Name                       sql.NullString `json:"name" rql:"filter"`
+	Description                sql.NullString `json:"description" rql:"filter"`
+	Division                   sql.NullString `json:"division" rql:"filter"`
+	Department                 sql.NullString `json:"department" rql:"filter"`
+	Prerequisites              sql.NullString `json:"prerequisites" rql:"filter"`
+	Corequisites               sql.NullString `json:"corequisites" rql:"filter"`
+	Exclusions                 sql.NullString `json:"exclusions" rql:"filter"`
+	RecommendedPreparation     sql.NullString `json:"recommended_preparation" rql:"filter"`
+	Level                      sql.NullString `json:"level" rql:"filter"`
+	Campus                     sql.NullString `json:"campus" rql:"filter"`
+	Term                       sql.NullString `json:"term" rql:"filter"`
+	ArtsAndScienceBreadth      sql.NullString `json:"arts_and_science_breadth" rql:"filter"`
+	ArtsAndScienceDistribution sql.NullString `json:"arts_and_science_distribution" rql:"filter"`
+	UtmDistribution            sql.NullString `json:"utm_distribution" rql:"filter"`
+	UtscBreadth                sql.NullString `json:"utsc_breadth" rql:"filter"`
+	ApscElectives              sql.NullString `json:"apsc_electives" rql:"filter"`
 	MeetingSections            []struct {
-		Code        null.String   `json:"code"`
-		Instructors []null.String `json:"instructors"`
+		Code        sql.NullString   `json:"code"`
+		Instructors []sql.NullString `json:"instructors"`
 		Times       []struct {
-			Day      null.String `json:"day"`
-			Start    null.Int    `json:"start"`
-			End      null.Int    `json:"end"`
-			Duration null.Int    `json:"duration"`
-			Location null.String `json:"location"`
+			Day      sql.NullString `json:"day"`
+			Start    sql.NullInt64  `json:"start"`
+			End      sql.NullInt64  `json:"end"`
+			Duration sql.NullInt64  `json:"duration"`
+			Location sql.NullString `json:"location"`
 		} `json:"times"`
-		Size           null.Int    `json:"size"`
-		Enrollment     null.Int    `json:"enrollment"`
-		WaitlistOption null.Bool   `json:"waitlist_option"`
-		Delivery       null.String `json:"delivery"`
+		Size           sql.NullInt64  `json:"size"`
+		Enrollment     sql.NullInt64  `json:"enrollment"`
+		WaitlistOption sql.NullBool   `json:"waitlist_option"`
+		Delivery       sql.NullString `json:"delivery"`
 	} `json:"meeting_sections"`
-	LastUpdated null.String `json:"last_updated" rql:"filter"`
+	LastUpdated sql.NullString `json:"last_updated"`
 }
 
 // Textbook represents a textbook item
 type Textbook struct {
-	ID      null.String `json:"id" rql:"filter"`
-	Isbn    null.String `json:"isbn" rql:"filter"`
-	Title   null.String `json:"title" rql:"filter"`
-	Edition null.Int    `json:"edition" rql:"filter"`
-	Author  null.String `json:"author" rql:"filter"`
-	Image   null.String `json:"image" rql:"filter"`
-	Price   null.Float  `json:"price" rql:"filter"`
-	URL     null.String `json:"url" rql:"filter"`
+	ID      sql.NullString  `json:"id" rql:"filter"`
+	Isbn    sql.NullString  `json:"isbn" rql:"filter"`
+	Title   sql.NullString  `json:"title" rql:"filter"`
+	Edition sql.NullInt64   `json:"edition" rql:"filter"`
+	Author  sql.NullString  `json:"author" rql:"filter"`
+	Image   sql.NullString  `json:"image" rql:"filter"`
+	Price   sql.NullFloat64 `json:"price" rql:"filter"`
+	URL     sql.NullString  `json:"url" rql:"filter"`
 	Courses []struct {
-		ID              null.String `json:"id"`
-		Code            null.String `json:"code"`
-		Requirement     null.String `json:"requirement"`
+		ID              sql.NullString `json:"id"`
+		Code            sql.NullString `json:"code"`
+		Requirement     sql.NullString `json:"requirement"`
 		MeetingSections []struct {
-			Code        null.String   `json:"code"`
-			Instructors []null.String `json:"instructors"`
+			Code        sql.NullString   `json:"code"`
+			Instructors []sql.NullString `json:"instructors"`
 		} `json:"meeting_sections"`
 	} `json:"courses"`
-	LastUpdated null.String `json:"last_updated" rql:"filter"`
+	LastUpdated sql.NullString `json:"last_updated"`
 }
 
 // Building represents a building item
 type Building struct {
-	ID        null.String `json:"id" rql:"filter"`
-	Code      null.String `json:"code" rql:"filter"`
-	Tags      null.String `json:"tags" rql:"filter"`
-	Name      null.String `json:"name" rql:"filter"`
-	ShortName null.String `json:"short_name" rql:"filter"`
+	ID        sql.NullString `json:"id" rql:"filter"`
+	Code      sql.NullString `json:"code" rql:"filter"`
+	Tags      sql.NullString `json:"tags" rql:"filter"`
+	Name      sql.NullString `json:"name" rql:"filter"`
+	ShortName sql.NullString `json:"short_name" rql:"filter"`
 	Address   struct {
-		Street   null.String `json:"street"`
-		City     null.String `json:"city"`
-		Province null.String `json:"province"`
-		Country  null.String `json:"country"`
-		Postal   null.String `json:"postal"`
+		Street   sql.NullString `json:"street"`
+		City     sql.NullString `json:"city"`
+		Province sql.NullString `json:"province"`
+		Country  sql.NullString `json:"country"`
+		Postal   sql.NullString `json:"postal"`
 	} `json:"address"`
 	Coordinates struct {
-		Latitude  null.Float `json:"latitude"`
-		Longitude null.Float `json:"longitude"`
+		Latitude  sql.NullFloat64 `json:"latitude"`
+		Longitude sql.NullFloat64 `json:"longitude"`
 	} `json:"coordinates"`
-	LastUpdated null.String `json:"last_updated" rql:"filter"`
+	LastUpdated sql.NullString `json:"last_updated"`
 }
 
 // Food represents a food item
 type Food struct {
-	ID          null.String `json:"id" rql:"filter"`
-	Name        null.String `json:"name" rql:"filter"`
-	Description null.String `json:"description" rql:"filter"`
-	Tags        null.String `json:"tags" rql:"filter"`
-	Campus      null.String `json:"campus" rql:"filter"`
-	Address     null.String `json:"address" rql:"filter"`
+	ID          sql.NullString `json:"id" rql:"filter"`
+	Name        sql.NullString `json:"name" rql:"filter"`
+	Description sql.NullString `json:"description" rql:"filter"`
+	Tags        sql.NullString `json:"tags" rql:"filter"`
+	Campus      sql.NullString `json:"campus" rql:"filter"`
+	Address     sql.NullString `json:"address" rql:"filter"`
 	Coordinates struct {
-		Latitude  null.Float `json:"latitude"`
-		Longitude null.Float `json:"longitude"`
+		Latitude  sql.NullFloat64 `json:"latitude"`
+		Longitude sql.NullFloat64 `json:"longitude"`
 	} `json:"coordinates"`
 	Hours struct {
 		Sunday struct {
-			Closed null.Bool `json:"closed"`
-			Open   null.Int  `json:"open"`
-			Close  null.Int  `json:"close"`
+			Closed sql.NullBool  `json:"closed"`
+			Open   sql.NullInt64 `json:"open"`
+			Close  sql.NullInt64 `json:"close"`
 		} `json:"sunday"`
 		Monday struct {
-			Closed null.Bool `json:"closed"`
-			Open   null.Int  `json:"open"`
-			Close  null.Int  `json:"close"`
+			Closed sql.NullBool  `json:"closed"`
+			Open   sql.NullInt64 `json:"open"`
+			Close  sql.NullInt64 `json:"close"`
 		} `json:"monday"`
 		Tuesday struct {
-			Closed null.Bool `json:"closed"`
-			Open   null.Int  `json:"open"`
-			Close  null.Int  `json:"close"`
+			Closed sql.NullBool  `json:"closed"`
+			Open   sql.NullInt64 `json:"open"`
+			Close  sql.NullInt64 `json:"close"`
 		} `json:"tuesday"`
 		Wednesday struct {
-			Closed null.Bool `json:"closed"`
-			Open   null.Int  `json:"open"`
-			Close  null.Int  `json:"close"`
+			Closed sql.NullBool  `json:"closed"`
+			Open   sql.NullInt64 `json:"open"`
+			Close  sql.NullInt64 `json:"close"`
 		} `json:"wednesday"`
 		Thursday struct {
-			Closed null.Bool `json:"closed"`
-			Open   null.Int  `json:"open"`
-			Close  null.Int  `json:"close"`
+			Closed sql.NullBool  `json:"closed"`
+			Open   sql.NullInt64 `json:"open"`
+			Close  sql.NullInt64 `json:"close"`
 		} `json:"thursday"`
 		Friday struct {
-			Closed null.Bool `json:"closed"`
-			Open   null.Int  `json:"open"`
-			Close  null.Int  `json:"close"`
+			Closed sql.NullBool  `json:"closed"`
+			Open   sql.NullInt64 `json:"open"`
+			Close  sql.NullInt64 `json:"close"`
 		} `json:"friday"`
 		Saturday struct {
-			Closed null.Bool `json:"closed"`
-			Open   null.Int  `json:"open"`
-			Close  null.Int  `json:"close"`
+			Closed sql.NullBool  `json:"closed"`
+			Open   sql.NullInt64 `json:"open"`
+			Close  sql.NullInt64 `json:"close"`
 		} `json:"saturday"`
 	} `json:"hours"`
-	Image       null.String   `json:"image" rql:"filter"`
-	URL         null.String   `json:"url" rql:"filter"`
-	Twitter     null.String   `json:"twitter" rql:"filter"`
-	Facebook    null.String   `json:"facebook" rql:"filter"`
-	Attributes  []null.String `json:"attributes" rql:"filter"`
-	LastUpdated null.String   `json:"last_updated" rql:"filter"`
+	Image       sql.NullString   `json:"image" rql:"filter"`
+	URL         sql.NullString   `json:"url" rql:"filter"`
+	Twitter     sql.NullString   `json:"twitter" rql:"filter"`
+	Facebook    sql.NullString   `json:"facebook" rql:"filter"`
+	Attributes  []sql.NullString `json:"attributes" rql:"filter"`
+	LastUpdated sql.NullString   `json:"last_updated"`
 }
 
 // Parking represents a parking item
 type Parking struct {
-	ID          null.String `json:"id" rql:"filter"`
-	Name        null.String `json:"name" rql:"filter"`
-	Alias       null.String `json:"alias" rql:"filter"`
-	BuildingID  null.String `json:"building_id" rql:"filter"`
-	Description null.String `json:"description" rql:"filter"`
-	Campus      null.String `json:"campus" rql:"filter"`
-	Address     null.String `json:"address" rql:"filter"`
+	ID          sql.NullString `json:"id" rql:"filter"`
+	Name        sql.NullString `json:"name" rql:"filter"`
+	Alias       sql.NullString `json:"alias" rql:"filter"`
+	BuildingID  sql.NullString `json:"building_id" rql:"filter"`
+	Description sql.NullString `json:"description" rql:"filter"`
+	Campus      sql.NullString `json:"campus" rql:"filter"`
+	Address     sql.NullString `json:"address" rql:"filter"`
 	Coordinates struct {
-		Latitude  null.Float `json:"latitude"`
-		Longitude null.Float `json:"longitude"`
+		Latitude  sql.NullFloat64 `json:"latitude"`
+		Longitude sql.NullFloat64 `json:"longitude"`
 	} `json:"coordinates"`
-	LastUpdated null.String `json:"last_updated" rql:"filter"`
+	LastUpdated sql.NullString `json:"last_updated"`
 }
 
 // Service represents an service item
 type Service struct {
-	ID          null.String `json:"id" rql:"filter"`
-	Name        null.String `json:"name" rql:"filter"`
-	Alias       null.String `json:"alias" rql:"filter"`
-	BuildingID  null.String `json:"building_id" rql:"filter"`
-	Description null.String `json:"description" rql:"filter"`
-	Campus      null.String `json:"campus" rql:"filter"`
-	Address     null.String `json:"address" rql:"filter"`
-	Image       null.String `json:"image" rql:"filter"`
+	ID          sql.NullString `json:"id" rql:"filter"`
+	Name        sql.NullString `json:"name" rql:"filter"`
+	Alias       sql.NullString `json:"alias" rql:"filter"`
+	BuildingID  sql.NullString `json:"building_id" rql:"filter"`
+	Description sql.NullString `json:"description" rql:"filter"`
+	Campus      sql.NullString `json:"campus" rql:"filter"`
+	Address     sql.NullString `json:"address" rql:"filter"`
+	Image       sql.NullString `json:"image" rql:"filter"`
 	Coordinates struct {
-		Latitude  null.Float `json:"latitude"`
-		Longitude null.Float `json:"longitude"`
+		Latitude  sql.NullFloat64 `json:"latitude"`
+		Longitude sql.NullFloat64 `json:"longitude"`
 	} `json:"coordinates"`
-	Tags        null.String   `json:"tags" rql:"filter"`
-	Attributes  []null.String `json:"attributes" rql:"filter"`
-	LastUpdated null.String   `json:"last_updated" rql:"filter"`
+	Tags        sql.NullString   `json:"tags" rql:"filter"`
+	Attributes  []sql.NullString `json:"attributes" rql:"filter"`
+	LastUpdated sql.NullString   `json:"last_updated"`
 }
 
 // Exam represents an exam item
 type Exam struct {
-	ID         null.String `json:"id" rql:"filter"`
-	CourseID   null.String `json:"course_id" rql:"filter"`
-	CourseCode null.String `json:"course_code" rql:"filter"`
-	Campus     null.String `json:"campus" rql:"filter"`
-	Date       null.String `json:"date" rql:"filter"`
-	Start      null.Int    `json:"start" rql:"filter"`
-	End        null.Int    `json:"end" rql:"filter"`
-	Duration   null.Int    `json:"duration" rql:"filter"`
+	ID         sql.NullString `json:"id" rql:"filter"`
+	CourseID   sql.NullString `json:"course_id" rql:"filter"`
+	CourseCode sql.NullString `json:"course_code" rql:"filter"`
+	Campus     sql.NullString `json:"campus" rql:"filter"`
+	Date       sql.NullString `json:"date" rql:"filter"`
+	Start      sql.NullInt64  `json:"start" rql:"filter"`
+	End        sql.NullInt64  `json:"end" rql:"filter"`
+	Duration   sql.NullInt64  `json:"duration" rql:"filter"`
 	Sections   []struct {
-		LectureCode null.String `json:"lecture_code"`
-		Split       null.String `json:"split"`
-		Location    null.String `json:"location"`
+		LectureCode sql.NullString `json:"lecture_code"`
+		Split       sql.NullString `json:"split"`
+		Location    sql.NullString `json:"location"`
 	} `json:"sections"`
-	LastUpdated null.String `json:"last_updated" rql:"filter"`
+	LastUpdated sql.NullString `json:"last_updated"`
 }
 
 // Eval represents an eval item
 type Eval struct {
-	ID     null.String `json:"id" rql:"filter"`
-	Name   null.String `json:"name" rql:"filter"`
-	Campus null.String `json:"campus" rql:"filter"`
+	ID     sql.NullString `json:"id" rql:"filter"`
+	Name   sql.NullString `json:"name" rql:"filter"`
+	Campus sql.NullString `json:"campus" rql:"filter"`
 	Terms  []struct {
-		Term     null.String `json:"term"`
+		Term     sql.NullString `json:"term"`
 		Lectures []struct {
-			LectureCode null.String `json:"lecture_code"`
-			Firstname   null.String `json:"firstname"`
-			Lastname    null.String `json:"lastname"`
-			S1          null.Float  `json:"s1"`
-			S2          null.Float  `json:"s2"`
-			S3          null.Float  `json:"s3"`
-			S4          null.Float  `json:"s4"`
-			S5          null.Float  `json:"s5"`
-			S6          null.Float  `json:"s6"`
-			Invited     null.Int    `json:"invited"`
-			Responses   null.Int    `json:"responses"`
+			LectureCode sql.NullString  `json:"lecture_code"`
+			Firstname   sql.NullString  `json:"firstname"`
+			Lastname    sql.NullString  `json:"lastname"`
+			S1          sql.NullFloat64 `json:"s1"`
+			S2          sql.NullFloat64 `json:"s2"`
+			S3          sql.NullFloat64 `json:"s3"`
+			S4          sql.NullFloat64 `json:"s4"`
+			S5          sql.NullFloat64 `json:"s5"`
+			S6          sql.NullFloat64 `json:"s6"`
+			Invited     sql.NullInt64   `json:"invited"`
+			Responses   sql.NullInt64   `json:"responses"`
 		} `json:"lectures"`
 	} `json:"terms"`
-	LastUpdated null.String `json:"last_updated" rql:"filter"`
+	LastUpdated sql.NullString `json:"last_updated"`
 }

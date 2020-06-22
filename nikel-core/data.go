@@ -2,6 +2,8 @@ package main
 
 import (
 	"github.com/a8m/rql"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/nikel-api/nikel/common"
 	"github.com/thedevsaddam/gojsonq/v2"
 	"os"
@@ -33,6 +35,7 @@ type Parsers struct {
 
 var database = &Database{}
 var parsers = &Parsers{}
+var db *gorm.DB
 
 // loadVals loads JSON data to database
 func loadVals() {
@@ -41,6 +44,8 @@ func loadVals() {
 	if filepath.Base(wd) == "nikel-core" {
 		pathPrefix = "../"
 	}
+
+	db, _ = gorm.Open("sqlite3", pathPrefix+"database/database.db")
 
 	database.Courses = gojsonq.New().File(pathPrefix + common.COURSEPATH).Reset()
 	database.Textbooks = gojsonq.New().File(pathPrefix + common.TEXTBOOKPATH).Reset()
